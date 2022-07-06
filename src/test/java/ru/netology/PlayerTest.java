@@ -110,7 +110,7 @@ public class PlayerTest {
         player.play(game2, 2);
         player.play(game3, 4);
 
-        String expected = game3.getTitle();
+        String expected = String.valueOf(game3);
         String actual = String.valueOf(player.mostPlayerByGenre(game1.getGenre()));
         assertEquals(expected, actual);
     }
