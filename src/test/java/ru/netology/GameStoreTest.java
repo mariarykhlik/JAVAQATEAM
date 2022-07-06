@@ -60,8 +60,8 @@ public class GameStoreTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-            "\"Gleb\", 3, \"Egor\", -2, \"Gleb\"",
-            "\"Gleb\", 2, \"Egor\", 2, \"Gleb\"",
+            "\"Gleb\", 3, \"Egor\", 2, \"Gleb\"",
+            "\"Gleb\", 2, \"Egor\", 2, \"Egor\"",
             "\"Gleb\", 2, \"Egor\", 3, \"Egor\""
     })
     public void shouldGetMostPlayerForSeveral(String playerName1, int hours1, String playerName2, int hours2, String expected) {
@@ -85,6 +85,17 @@ public class GameStoreTest {
         String actual = store.getMostPlayer();
 
         assertEquals(null, actual);
+    }
+
+    @Test
+    public void shouldTrowRunTimeExceptionForNegativeHours() {
+
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+        assertThrows(RuntimeException.class, () -> {
+            store.addPlayTime("Egor", -2);
+        });
     }
 
     @Test
